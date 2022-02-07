@@ -38,6 +38,11 @@ function getSalePrice(originalPrice, reduction) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (reduction === undefined) throw new Error("reduction is required");
   // Add your code here!
+  if(Number.isNaN(originalPrice)) throw new Error("originalPrice is not a number");
+  if(Number.isNaN(reduction)) throw new Error("reduction is not a number"); 
+
+  let reductionAmount = +(reduction / 100 * originalPrice).toFixed(2); // handle the floating point rounding up to 2 decimal places.
+  return (originalPrice - reductionAmount);
 }
 
 function getMiddleCharacter(str) {
