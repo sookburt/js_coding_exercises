@@ -1,14 +1,26 @@
 function capitalize(word) {
   if (word === undefined) throw new Error("word is required");
   // Add your code here!
-  let builder = word.charAt(0).toLocaleUpperCase() + word.substr(1, word.length);
+  let builder = word.charAt(0).toLocaleUpperCase() + word.substr(1);
   return builder;
 } 
 
 function generateInitials(firstName, lastName) {
   if (firstName === undefined) throw new Error("firstName is required");
   if (lastName === undefined) throw new Error("lastName is required");
-  // Add your code here!
+  // TODO: check to see if input strings contain alphabetical characters only (locale considerations?).
+
+  /* ASSUMPTIONS: 
+
+      - We're not required to handle input values that might consist of a compound names, such as Carrie Anne, Rees-Mogg or Bonham Carter.
+      - We're not required to handle input values that might consist of 'son of' names such as O'Connor, MacDonald or McDonald
+      - We're not required to handle input values that might contain a suffix, such as Jr or III .
+
+      // TODO: consider returning to allow for some of these inputs if time later (regex?)
+  */
+
+  let initialBuilder = firstName.charAt(0).toUpperCase() + "." + lastName.charAt(0).toUpperCase();
+  return initialBuilder;
 }
 
 function addVAT(originalPrice, vatRate) {
