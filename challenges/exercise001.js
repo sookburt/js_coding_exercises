@@ -49,7 +49,8 @@ function getMiddleCharacter(str) {
   if (str === undefined) throw new Error("str is required");
   // Add your code here!
   // TODO: add check if input contains correct character type
-
+  // TODO: should we trim or is any padding expected to be included.
+  
   let stringSize = str.length;
   if(stringSize % 2 < 1) {
     let target = stringSize/2;
