@@ -98,7 +98,23 @@ function getMeanScore(scores) {
 
 function simpleFizzBuzz(n) {
   if (n === undefined) throw new Error("n is required");
-  // Add your code here!
+  
+  let divBy3 = n%3 === 0;
+  let divBy5 = n%5 === 0;
+
+  if(divBy3 && divBy5) {
+    return "fizzbuzz";
+  }
+
+  if(divBy3) {
+    return "fizz";
+  }
+
+  if(divBy5) {
+    return "buzz";
+  }
+
+  return n;
 }
 
 module.exports = {
