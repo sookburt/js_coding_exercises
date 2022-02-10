@@ -50,7 +50,7 @@ function getMiddleCharacter(str) {
   // Add your code here!
   // TODO: add check if input contains correct character type
   // TODO: should we trim or is any padding expected to be included.
-  
+
   let stringSize = str.length;
   if(stringSize % 2 < 1) {
     let target = stringSize/2;
@@ -63,12 +63,17 @@ function getMiddleCharacter(str) {
 
 function reverseWord(word) {
   if (word === undefined) throw new Error("word is required");
-  // Add your code here!
+  // Assumed any padding also part of the requirements.
+
+  return word.split("").reverse().join("");
 }
 
 function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
-  // Add your code here!
+  // Assumed any padding to be retained
+  
+  let returnArray = words.map(x => reverseWord(x));
+  return returnArray;
 }
 
 function countLinuxUsers(users) {
