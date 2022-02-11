@@ -10,7 +10,8 @@ function isFromManchester(person) {
 
 function getBusNumbers(people) {
   if (people === undefined) throw new Error("people is required");
-  // Your code here!
+  const passengerLimit = 40;
+  return Math.ceil(people/passengerLimit)
 }
 
 function countSheep(arr) {
