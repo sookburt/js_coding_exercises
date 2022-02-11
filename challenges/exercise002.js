@@ -16,7 +16,14 @@ function getBusNumbers(people) {
 
 function countSheep(arr) {
   if (arr === undefined) throw new Error("arr is required");
-  // Your code here!
+  const targetWord = "sheep";
+  let count = 0;
+  arr.forEach(animal => {
+    if(animal.toLowerCase() === targetWord) {
+      count++;
+    }
+  });
+  return count;
 }
 
 function hasMPostCode(person) {
