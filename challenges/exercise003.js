@@ -1,6 +1,6 @@
 function getSquares(nums) {
   if (nums === undefined) throw new Error("nums is required");
-  return nums.map(n => n*n);
+  return nums.map(n => n * n);
 }
 
 function camelCaseWords(words) {
@@ -23,8 +23,8 @@ function checkIngredients(menu, ingredient) {
 
   let ingredientExists = false;
 
-  menu.forEach(item => { 
-    if(item.ingredients.includes(ingredient)) {
+  menu.forEach(item => {
+    if (item.ingredients.includes(ingredient)) {
       ingredientExists = true;
     }
   })
@@ -35,7 +35,12 @@ function checkIngredients(menu, ingredient) {
 function duplicateNumbers(arr1, arr2) {
   if (arr1 === undefined) throw new Error("arr1 is required");
   if (arr2 === undefined) throw new Error("arr2 is required");
-  // Your code here!
+
+  // filter first array to only those values included in second array
+  // drop into a new set to remove duplicates
+  // convert set to an array using ... spread operator then sort
+  // readability 0 : conciseness 1  
+  return [...new Set(arr1.filter(num => arr2.includes(num)))].sort();
 }
 
 module.exports = {
