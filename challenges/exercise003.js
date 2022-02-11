@@ -12,9 +12,7 @@ function getTotalSubjects(people) {
   if (people === undefined) throw new Error("people is required");
   let count = 0;
 
-  people.forEach(person => {
-    count += person.subjects.length;
-  });
+  people.forEach(person => count += person.subjects.length);
 
   return count;
 }
