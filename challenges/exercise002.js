@@ -11,7 +11,7 @@ function isFromManchester(person) {
 function getBusNumbers(people) {
   if (people === undefined) throw new Error("people is required");
   const passengerLimit = 40;
-  return Math.ceil(people/passengerLimit);
+  return Math.ceil(people / passengerLimit);
 }
 
 function countSheep(arr) {
@@ -19,7 +19,7 @@ function countSheep(arr) {
   const targetWord = "sheep";
   let count = 0;
   arr.forEach(animal => {
-    if(animal.toLowerCase() === targetWord) {
+    if (animal.toLowerCase() === targetWord) {
       count++;
     }
   });
