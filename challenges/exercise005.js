@@ -37,13 +37,12 @@ const sumArrays = arrs => {
 
 const arrShift = arr => {
   if (arr === undefined) throw new Error("arr is required");
-  if(arr.length < 2){ 
-    return arr; 
+  if ( arr.length > 1 ) { 
+    let toFront = arr.pop();
+    let toEnd = arr.shift();
+    arr.unshift(toFront);
+    arr.push(toEnd);
   }
-  let toFront = arr.pop();
-  let toEnd = arr.shift();
-  arr.unshift(toFront);
-  arr.push(toEnd);
   return arr;
   // TODO: refactor?
 };
@@ -51,7 +50,24 @@ const arrShift = arr => {
 const findNeedle = (haystack, searchTerm) => {
   if (haystack === undefined) throw new Error("haystack is required");
   if (searchTerm === undefined) throw new Error("searchTerm is required");
-  // Your code here!
+  // assume not nested objects (otherwise recursion?)
+
+  // 🤢  TODO: refactor...
+  for(let key in haystack){
+    let value = haystack[key];
+    let checkedSearchTerm = searchTerm;
+    if(typeof searchTerm === 'string' && typeof value === 'string'){
+      value = value.toLowerCase();
+      checkedSearchTerm = checkedSearchTerm.toLowerCase();
+      if(value.includes(checkedSearchTerm)){
+        return true;
+      }
+    }
+    if(value === checkedSearchTerm){ // in case of non string values being searched for
+      return true;
+    }
+  }
+  return false;
 };
 
 const getWordFrequencies = str => {
