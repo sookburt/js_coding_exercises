@@ -22,7 +22,7 @@ const count1sand0s = str => {
 
 const reverseNumber = n => {
   if (n === undefined) throw new Error("n is required");
-  // Your code here!
+  // TODO: refactor.
   let str = n.toString();
   let arr = str.split('');
   let reversed = arr.reverse();
@@ -31,7 +31,8 @@ const reverseNumber = n => {
 
 const sumArrays = arrs => {
   if (arrs === undefined) throw new Error("arrs is required");
-  // Your code here!
+  // assume only one level of flat array depth required.
+  return (arrs.flat()).reduce((curr, prev) => curr + prev);
 };
 
 const arrShift = arr => {
