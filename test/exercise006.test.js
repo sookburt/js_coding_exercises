@@ -1,7 +1,8 @@
 const {
   sumMultiples,
   isValidDNA,
-  getComplementaryDNA
+  getComplementaryDNA,
+  isItPrime
 } = require("../challenges/exercise006");
 
 describe("sumMultiples", () => {
