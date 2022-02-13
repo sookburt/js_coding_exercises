@@ -4,12 +4,12 @@
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
- 
+
   const splitIncoming = n.split("");
   let total = 0;
   splitIncoming.forEach(num => {
     let parsed = Number.parseInt(num);
-    if(Number.isNaN(parsed)) throw new Error("a string containing a number is required")
+    if (Number.isNaN(parsed)) throw new Error("a string containing a number is required")
     total += parsed;
   });
   return total;

@@ -7,7 +7,7 @@
 const sumMultiples = arr => {
   if (arr === undefined) throw new Error("arr is required");
   let sum = 0;
-  arr.forEach(num => (num%3 === 0 || num%5 === 0) ? sum += num : sum += 0);
+  arr.forEach(num => (num % 3 === 0 || num % 5 === 0) ? sum += num : sum += 0);
   return sum;
 };
 
@@ -22,8 +22,8 @@ const isValidDNA = str => {
   const dnaArray = ["G", "T", "A", "C"];
   // reduce the values to iterate over. 
   let reducedString = [...new Set(str)];
-  for(let i = 0; i < reducedString.length; i++){
-    if(!dnaArray.includes(reducedString[i])) {
+  for (let i = 0; i < reducedString.length; i++) {
+    if (!dnaArray.includes(reducedString[i])) {
       return false;
     }
   }
@@ -54,13 +54,12 @@ const getComplementaryDNA = str => {
  */
 const isItPrime = n => {
   if (n === undefined) throw new Error("n is required");
-  if(n <= 2) { return false; }
+  if (n <= 2) { return false; }
 
   let sqrt = Math.sqrt(n); // more performant to use sqrt.
 
-  for(let factor = 2; factor <= sqrt; factor++){
-    if(n % factor === 0)
-    {
+  for (let factor = 2; factor <= sqrt; factor++) {
+    if (n % factor === 0) {
       return false;
     }
   }
@@ -83,9 +82,9 @@ const createMatrix = (n, fill) => {
   if (fill === undefined) throw new Error("fill is required");
 
   let outgoingArray = [];
-  for(let outer = 0; outer < n; outer++) {
+  for (let outer = 0; outer < n; outer++) {
     let innerArray = [];
-    for(let inner = 0; inner < n; inner++) {
+    for (let inner = 0; inner < n; inner++) {
       innerArray.push(fill);
     }
     outgoingArray.push(innerArray);
@@ -112,11 +111,11 @@ const areWeCovered = (staff, day) => {
   let count = 0;
 
   staff.forEach(person => {
-    if(person.rota.includes(day)) {
+    if (person.rota.includes(day)) {
       count += 1;
     }
   })
-  
+
   return count > 2;
 };
 

@@ -87,7 +87,7 @@ const getWordFrequencies = str => {
   if (str === undefined) throw new Error("str is required");
 
   // remove punctuation and padding and ensure all lowercase.
-  const processedString = str.trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").toLowerCase();
+  const processedString = str.trim().replace(/[.,/#!$%^&*;:{}=\-_`~()?]/g, "").toLowerCase();
   const stringArray = processedString.split(" ");
   const wordCounts = {};
 
