@@ -10,8 +10,8 @@ const count1sand0s = str => {
   let count0 = 0;
   let count1 = 0;
   str.split('').forEach(char => {
-    if(char === '0') { count0++ }
-    if(char === '1') { count1++ }
+    if (char === '0') { count0++ }
+    if (char === '1') { count1++ }
   });
   return {
     1: count1,
@@ -37,7 +37,7 @@ const sumArrays = arrs => {
 
 const arrShift = arr => {
   if (arr === undefined) throw new Error("arr is required");
-  if ( arr.length > 1 ) { 
+  if (arr.length > 1) {
     let toFront = arr.pop();
     let toEnd = arr.shift();
     arr.unshift(toFront);
@@ -53,17 +53,17 @@ const findNeedle = (haystack, searchTerm) => {
   // assume not nested objects (otherwise recursion?)
 
   // 🤢  TODO: refactor...
-  for(let key in haystack){
+  for (let key in haystack) {
     let value = haystack[key];
     let checkedSearchTerm = searchTerm;
-    if(typeof searchTerm === 'string' && typeof value === 'string'){
+    if (typeof searchTerm === 'string' && typeof value === 'string') {
       value = value.toLowerCase();
       checkedSearchTerm = checkedSearchTerm.toLowerCase();
-      if(value.includes(checkedSearchTerm)){
+      if (value.includes(checkedSearchTerm)) {
         return true;
       }
     }
-    if(value === checkedSearchTerm){ // in case of non string values being searched for
+    if (value === checkedSearchTerm) { // in case of non string values being searched for
       return true;
     }
   }
@@ -72,7 +72,21 @@ const findNeedle = (haystack, searchTerm) => {
 
 const getWordFrequencies = str => {
   if (str === undefined) throw new Error("str is required");
-  // Your code here!
+
+  // remove punctuation and padding and ensure all lowercase.
+  const processedString = str.trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").toLowerCase();
+  const stringArray = processedString.split(" ");
+  const wordCounts = {};
+
+  stringArray.forEach(word => {
+    if (wordCounts[word] === undefined) {
+      wordCounts[word] = 1;
+    }
+    else {
+      wordCounts[word] += 1;
+    }
+  });
+  return wordCounts;
 };
 
 module.exports = {
