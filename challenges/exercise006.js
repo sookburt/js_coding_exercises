@@ -37,6 +37,14 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  // is a map overkill for this situation?
+  const pairs = new Map();
+  pairs.set("A", "T");
+  pairs.set("T", "A");
+  pairs.set("C", "G");
+  pairs.set("G", "C");
+
+  return str.split("").map(char => pairs.get(char)).join("");
 };
 
 /**
