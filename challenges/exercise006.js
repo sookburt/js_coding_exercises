@@ -18,6 +18,16 @@ const sumMultiples = arr => {
  */
 const isValidDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  if (str.length < 1) { return false; }
+  const dnaArray = ["G", "T", "A", "C"];
+  // reduce the values to iterate over. 
+  let reducedString = [...new Set(str)];
+  for(let i = 0; i < reducedString.length; i++){
+    if(!dnaArray.includes(reducedString[i])) {
+      return false;
+    }
+  }
+  return true;
 };
 
 /**
