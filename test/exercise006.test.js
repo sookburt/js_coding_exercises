@@ -50,3 +50,21 @@ describe("getComplementaryDNA", () => {
   });
 
 });
+
+describe("isItPrime", () => {
+  test("returns true if the incoming number is a prime number", () => {
+    expect(isItPrime(7)).toBe(true);
+    expect(isItPrime(1117)).toBe(true); 
+    expect(isItPrime(15073)).toBe(true);
+  });
+
+  test("returns false if the incoming number is not a prime number", () => {
+    expect(isItPrime(9)).toBe(false);
+    expect(isItPrime(27)).toBe(false); 
+  });
+
+  test("returns false if the incoming number is negative", () => {
+    expect(isItPrime(-7)).toBe(false);
+  });
+
+});
