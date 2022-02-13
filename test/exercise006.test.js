@@ -25,7 +25,12 @@ describe("isValidDNA", () => {
   });
 
   test("if empty string return false", () => {
-    expect(isValidDNA("")).toBe(0);
+    expect(isValidDNA("")).toBe(false);
+  });
+
+  test("returns true only if characters G, C, T or A are uppercase", () => {
+    expect(isValidDNA("ACGT")).toBe(true); 
+    expect(isValidDNA("acgt")).toBe(false); 
   });
 
   test("returns false if the input string contains other characters as well as C, G, T or A only", () => {
