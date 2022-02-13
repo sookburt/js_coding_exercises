@@ -80,7 +80,15 @@ describe("createMatrix", () => {
         ['foo', 'foo', 'foo']
       ]
     );
-  
+    expect(createMatrix(5, "Entertaining!")).toEqual(
+      [
+        ["Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!"],
+        ["Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!"],
+        ["Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!"],
+        ["Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!"],
+        ["Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!"]
+      ]
+    );
   });
 
 });
