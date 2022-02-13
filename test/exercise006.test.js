@@ -3,7 +3,8 @@ const {
   isValidDNA,
   getComplementaryDNA,
   isItPrime,
-  createMatrix
+  createMatrix,
+  areWeCovered
 } = require("../challenges/exercise006");
 
 describe("sumMultiples", () => {
@@ -89,6 +90,24 @@ describe("createMatrix", () => {
         ["Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!", "Entertaining!"]
       ]
     );
+  });
+
+});
+
+let staff = 
+[
+  { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
+  { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"] },
+  { name: "Andy", rota: ["Saturday", "Sunday", "Thursday", "Friday"] },
+  { name: "Tessa", rota: ["Saturday", "Sunday", "Wednesday", "Friday"] },
+  { name: "Vero", rota: ["Saturday", "Sunday", "Monday", "Wednesday"] },
+  { name: "Keith", rota: ["Saturday", "Monday", "Wednesday"] },
+];
+
+describe("areWeCovered", () => {
+  test("returns true/false if at least 3 staff members are present on the given day", () => {
+    expect(areWeCovered(staff, "Saturday")).toBe(true);
+    expect(areWeCovered(staff, "Tuesday")).toBe(false);
   });
 
 });
