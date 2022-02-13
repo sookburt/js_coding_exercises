@@ -1,7 +1,20 @@
 const findNextNumber = (nums, n) => {
   if (nums === undefined) throw new Error("nums is required");
   if (n === undefined) throw new Error("n is required");
-  // TODO: return to this
+  let flag = false;
+  let target = null;
+
+  nums.forEach(num => {
+    if (flag) {
+      target = num;
+      flag = false;
+    }
+    if (target === null && num === n) {
+      flag = true;
+    }
+  });
+
+  return target;
 };
 
 const count1sand0s = str => {
