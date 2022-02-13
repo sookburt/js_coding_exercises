@@ -1,6 +1,7 @@
 const {
   sumMultiples,
-  isValidDNA
+  isValidDNA,
+  getComplementaryDNA
 } = require("../challenges/exercise006");
 
 describe("sumMultiples", () => {
@@ -36,6 +37,16 @@ describe("isValidDNA", () => {
   test("returns false if the input string contains other characters as well as C, G, T or A only", () => {
     expect(isValidDNA("ZTACG;")).toBe(false);
     expect(isValidDNA("12ACG")).toBe(false);
+  });
+
+});
+
+describe("getComplementaryDNA", () => {
+  test("returns complementary base pair sequence for any given valid DNA string", () => {
+    expect(getComplementaryDNA("CTGA")).toBe("GACT");
+    expect(getComplementaryDNA("GTAC")).toBe("CATG");
+    expect(getComplementaryDNA("TACG")).toBe("ATGC");
+    expect(getComplementaryDNA("ACGT")).toBe("TGCA");   
   });
 
 });
