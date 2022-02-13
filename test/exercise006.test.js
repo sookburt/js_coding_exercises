@@ -1,6 +1,6 @@
 const {
-  sumMultiples
-  
+  sumMultiples,
+  isValidDNA
 } = require("../challenges/exercise006");
 
 describe("sumMultiples", () => {
@@ -12,6 +12,25 @@ describe("sumMultiples", () => {
 
   test("if no values in the array are a multiple of 3 or 5, returns 0", () => {
     expect(sumMultiples([2, 7, 8, 1, 11])).toBe(0);
+  });
+
+});
+
+describe("isValidDNA", () => {
+  test("returns true if the input string contains the characters C, G, T or A only, in any order", () => {
+    expect(isValidDNA("CGTA")).toBe(true);
+    expect(isValidDNA("GTAC")).toBe(true);
+    expect(isValidDNA("TACG")).toBe(true);
+    expect(isValidDNA("ACGT")).toBe(true);    
+  });
+
+  test("if empty string return false", () => {
+    expect(isValidDNA("")).toBe(0);
+  });
+
+  test("returns false if the input string contains other characters as well as C, G, T or A only", () => {
+    expect(isValidDNA("ZTACG;")).toBe(false);
+    expect(isValidDNA("12ACG")).toBe(false);
   });
 
 });
