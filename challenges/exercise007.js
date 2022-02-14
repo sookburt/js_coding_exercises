@@ -4,7 +4,7 @@
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
-
+  // assumed non-negative numbers.
   const splitIncoming = n.split("");
   let total = 0;
   splitIncoming.forEach(num => {
@@ -26,8 +26,16 @@ const sumDigits = n => {
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
   if (end === undefined) throw new Error("end is required");
-  if (step === undefined) throw new Error("step is required"); // linter fix
+  if (step === undefined) throw new Error("step is required");
+  if (start > end) throw new Error("start should be less than end");
+  if (step > end) throw new Error("step should be less than end");
 
+  let returnArray = [];
+  while(start <= end){
+    returnArray.push(start);
+    start += step;
+  }
+  return returnArray;
 };
 
 /**
