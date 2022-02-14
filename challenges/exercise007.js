@@ -1,6 +1,7 @@
 /**
  * This function takes a number, e.g. 123 and returns the sum of all its digits, e.g 6 in this example.
  * @param {Number} n
+ * @returns {Number}
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
@@ -22,6 +23,7 @@ const sumDigits = n => {
  * @param {Number} start
  * @param {Number} end
  * @param {Number} step
+ * @returns {Array} 
  */
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
@@ -31,7 +33,7 @@ const createRange = (start, end, step) => {
   if (step > end) throw new Error("step should be less than end");
 
   let returnArray = [];
-  while(start <= end){
+  while (start <= end) {
     returnArray.push(start);
     start += step;
   }
@@ -66,10 +68,42 @@ const createRange = (start, end, step) => {
  * The date will be provided in the format "2019-05-04" (YYYY-MM-DD)
  * For example, if passed the above users and the date "2019-05-04" the function should return ["beth_1234"] as she used over 100 minutes of screentime on that date.
  * @param {Array} users
+ * @param {String} date // TODO: better to send in a Date and get string from that?
+ * @returns {Array}
  */
 const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
   if (date === undefined) throw new Error("date is required");
+  if (Number.isNaN(Date.parse(date))) throw new Error("date is not a date");
+
+  let usersOver100Minutes = [];
+  const limit = 100;
+
+  users.forEach(user => {
+
+    // get the userid 
+    let userid = user.username;
+
+    // find the usage record with the correct date
+    user.screenTime.forEach(record => {
+
+      if (record.date === date) {
+
+        // get the total minutes screentime for that date.
+        let total = 0;
+        for (let key in record.usage) {
+          total += record.usage[key];
+        }
+        
+        // if the total is > 100 , push the username into the return array.
+        if (total > limit) {
+          usersOver100Minutes.push(userid);
+        }
+      }
+    });
+  });
+
+  return usersOver100Minutes;
 };
 
 /**

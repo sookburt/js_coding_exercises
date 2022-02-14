@@ -1,5 +1,5 @@
 const {
-  sumDigits, createRange
+  sumDigits, createRange, getScreentimeAlertList
 } = require("../challenges/exercise007");
 
 describe("sumDigits", () => {
@@ -73,5 +73,55 @@ describe("createRange", () => {
   test("returns an array containing a range based on numbers sent in even if negative", () => {
     expect(createRange(-2, 3, 1)).toEqual([-2, -1, 0, 1, 2, 3]);
   });
+
+});
+
+describe("getScreentimeAlertList", () => {
+
+  let users = 
+  [
+   {
+     username: "beth_1234",
+     name: "Beth Smith",
+     screenTime: [
+                  { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                  { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                  { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                  { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} },
+                 ]
+    },
+    {
+     username: "sam_j_1989",
+     name: "Sam Jones",
+     screenTime: [
+                  { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                  { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                  { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} },
+                 ]
+    },
+  ]
+
+  test("throws an error if users parameter is not passed in", () => {
+    expect(() => {
+      getScreentimeAlertList();
+    }).toThrow("users is required");
+  });
+
+  test("throws an error if date parameter is not passed in", () => {
+    expect(() => {
+      getScreentimeAlertList(users);
+    }).toThrow("date is required");
+  });
+
+  test("throws an error if date argument does not parse to a date", () => {
+    expect(() => {
+      getScreentimeAlertList(users, "blah");
+    }).toThrow("date is not a date");
+  });
+
+  test("returns an array of usernames given both users and a date", () => {
+    expect(getScreentimeAlertList(users, "2019-05-04")).toEqual(["beth_1234"]);
+  });
+
 
 });
