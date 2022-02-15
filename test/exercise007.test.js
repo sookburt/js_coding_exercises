@@ -1,5 +1,5 @@
 const {
-  sumDigits, createRange, getScreentimeAlertList
+  sumDigits, createRange, getScreentimeAlertList, hexToRGB
 } = require("../challenges/exercise007");
 
 describe("sumDigits", () => {
@@ -123,5 +123,45 @@ describe("getScreentimeAlertList", () => {
     expect(getScreentimeAlertList(users, "2019-05-04")).toEqual(["beth_1234"]);
   });
 
+});
+
+describe("hexToRGB", () => {
+
+  test("that if throws an error if hexString parameter is undefined", () => {
+    expect(() => {
+      hexToRGB();
+    }).toThrow("hexStr is required");
+  });
+
+  test("that if throws an error if hexString argument is in the wrong format", () => {
+    
+    expect(() => {
+      hexToRGB("#TT1133");
+    }).toThrow("hexStr must a contain hexadecimal code");
+
+    expect(() => {
+      hexToRGB("#1133");
+    }).toThrow("hexStr must a contain hexadecimal code"); 
+  });
+
+  test("that the function returns the correct rgb value for a given 6 digit hex colour", () => {
+    expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
+  });
+
+  test("that the function returns the correct rgb value for a given 3 digit hex colour", () => {
+    expect(hexToRGB("#F13")).toBe("rgb(255,17,51)");
+  });
+
+  test("that the function returns the correct rgb value for a given 6 digit hex colour, case insensitive", () => {
+    expect(hexToRGB("#ff1133")).toBe("rgb(255,17,51)");
+  });
+
+  test("that the function returns the correct rgb value for a given 3 digit hex colour, case insensitive", () => {
+    expect(hexToRGB("#f13")).toBe("rgb(255,17,51)");
+  });
+
+  test("that the function returns the correct rgb value even if no prefix # sent in", () => {
+    expect(hexToRGB("FF1133")).toBe("rgb(255,17,51)");
+  });
 
 });
