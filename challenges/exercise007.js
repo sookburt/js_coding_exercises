@@ -125,7 +125,7 @@ const hexToRGB = hexStr => {
   let r, g, b = 0;
 
   // turn F13 into FF1133 by duplicating each of the characters
-  if(hexSection.length === 3) {
+  if (hexSection.length === 3) {
     hexSection = [...hexSection].map(char => char + char).join("");
   }
 
@@ -154,17 +154,17 @@ const findWinner = board => {
 
   // TODO: consider refactoring (look for patterns).
   winner = checkRowsForWinner(board.flat(), winner);
-  if(winner !== "") {
+  if (winner !== "") {
     return winner;
   }
 
   winner = checkColumnsForWinner(board.flat(), winner);
-  if(winner !== "") {
+  if (winner !== "") {
     return winner;
   }
 
   winner = checkDiagonalsForWinner(board.flat(), winner);
-  if(winner !== "") {
+  if (winner !== "") {
     return winner;
   }
 
@@ -173,26 +173,26 @@ const findWinner = board => {
 
 const checkDiagonalsForWinner = (board, winner) => {
 
-  if(board[0] === board [4] && board[0] === board[8]){ return board[0]; }
-  if(board[2] === board [4] && board[2] === board[6]){ return board[2]; }
+  if (board[0] === board[4] && board[0] === board[8]) { return board[0]; }
+  if (board[2] === board[4] && board[2] === board[6]) { return board[2]; }
 
   return winner;
 }
 
 const checkColumnsForWinner = (board, winner) => {
 
-  if(board[0] === board [3] && board[0] === board[6]){ return board[0]; }
-  if(board[1] === board [4] && board[1] === board[7]){ return board[1]; }
-  if(board[2] === board [5] && board[2] === board[8]){ return board[2]; }
+  if (board[0] === board[3] && board[0] === board[6]) { return board[0]; }
+  if (board[1] === board[4] && board[1] === board[7]) { return board[1]; }
+  if (board[2] === board[5] && board[2] === board[8]) { return board[2]; }
 
   return winner;
 }
 
 const checkRowsForWinner = (board, winner) => {
 
-  if(board[0] === board [1] && board[0] === board[2]){ return board[0]; }
-  if(board[3] === board [4] && board[3] === board[5]){ return board[3]; }
-  if(board[6] === board [7] && board[6] === board[8]){ return board[6]; }
+  if (board[0] === board[1] && board[0] === board[2]) { return board[0]; }
+  if (board[3] === board[4] && board[3] === board[5]) { return board[3]; }
+  if (board[6] === board[7] && board[6] === board[8]) { return board[6]; }
 
   return winner;
 }
@@ -207,7 +207,7 @@ const checkBoardDimensions = board => {
 
   let isValid = true;
   board.forEach(dimension => {
-     if(dimension.length !== 3) { isValid = false; };
+    if (dimension.length !== 3) { isValid = false; };
   });
   if (!isValid) throw new Error("Each of the elements in the board requires 3 elements.")
 
