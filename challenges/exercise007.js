@@ -145,6 +145,7 @@ const hexToRGB = hexStr => {
  * ]
  * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
  * @param {Array} board
+ * @return {String}
  */
 const findWinner = board => {
   checkBoardDimensions(board);
