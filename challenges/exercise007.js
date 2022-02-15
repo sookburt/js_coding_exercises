@@ -207,7 +207,7 @@ const checkBoardDimensions = board => {
 
   let isValid = true;
   board.forEach(dimension => {
-    if (dimension.length !== 3) { isValid = false; };
+    if (dimension.length !== 3) { isValid = false; }
   });
   if (!isValid) throw new Error("Each of the elements in the board requires 3 elements.")
 
