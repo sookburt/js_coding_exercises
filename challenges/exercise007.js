@@ -147,13 +147,77 @@ const hexToRGB = hexStr => {
  * @param {Array} board
  */
 const findWinner = board => {
-  if (board === undefined) throw new Error("board is required");
+  checkBoardDimensions(board);
+
+  let winner = "";
+
+  // TODO: consider refactoring (look for patterns).
+  winner = checkRowsForWinner(board.flat(), winner);
+  if(winner !== "") {
+    return winner;
+  }
+
+  winner = checkColumnsForWinner(board.flat(), winner);
+  if(winner !== "") {
+    return winner;
+  }
+
+  winner = checkDiagonalsForWinner(board.flat(), winner);
+  if(winner !== "") {
+    return winner;
+  }
+
+  return null;
 };
+
+const checkDiagonalsForWinner = (board, winner) => {
+
+  if(board[0] === board [4] && board[0] === board[8]){ return board[0]; }
+  if(board[2] === board [4] && board[2] === board[6]){ return board[2]; }
+
+  return winner;
+}
+
+const checkColumnsForWinner = (board, winner) => {
+
+  if(board[0] === board [3] && board[0] === board[6]){ return board[0]; }
+  if(board[1] === board [4] && board[1] === board[7]){ return board[1]; }
+  if(board[2] === board [5] && board[2] === board[8]){ return board[2]; }
+
+  return winner;
+}
+
+const checkRowsForWinner = (board, winner) => {
+
+  if(board[0] === board [1] && board[0] === board[2]){ return board[0]; }
+  if(board[3] === board [4] && board[3] === board[5]){ return board[3]; }
+  if(board[6] === board [7] && board[6] === board[8]){ return board[6]; }
+
+  return winner;
+}
+
+/**
+ * Checks that the board sent in is a 3 x 3 2-dimensional array.
+ * @param {Array} board 
+ */
+const checkBoardDimensions = board => {
+  if (board === undefined) throw new Error("board is required");
+  if (board.length !== 3) throw new Error("The board requires 3 elements.");
+
+  let isValid = true;
+  board.forEach(dimension => {
+     if(dimension.length !== 3) { isValid = false; };
+  });
+  if (!isValid) throw new Error("Each of the elements in the board requires 3 elements.")
+
+  return isValid;
+}
 
 module.exports = {
   sumDigits,
   createRange,
   getScreentimeAlertList,
   hexToRGB,
-  findWinner
+  findWinner,
+  checkBoardDimensions
 };

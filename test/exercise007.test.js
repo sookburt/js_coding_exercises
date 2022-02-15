@@ -1,5 +1,5 @@
 const {
-  sumDigits, createRange, getScreentimeAlertList, hexToRGB
+  sumDigits, createRange, getScreentimeAlertList, hexToRGB, findWinner, checkBoardDimensions
 } = require("../challenges/exercise007");
 
 describe("sumDigits", () => {
@@ -163,5 +163,160 @@ describe("hexToRGB", () => {
   test("that the function returns the correct rgb value even if no prefix # sent in", () => {
     expect(hexToRGB("FF1133")).toBe("rgb(255,17,51)");
   });
+
+});
+
+describe("findWinner", () => {
+
+  let boardXWinsDown1 = 
+    [
+      ["X", "0", null],
+      ["X", null, "0"],
+      ["X", null, "0"]
+    ];
+
+  let boardXWinsDown2 = 
+    [
+      ["0", "X", null],
+      [null, "X","0"],
+      [null, "X", "0"]
+    ];
+
+  let boardXWinsDown3 = 
+    [
+      ["0", null, "X"],
+      ["X", "0", "X"],
+      ["0", null, "X"]
+    ];
+
+  let board0WinsAcross1 = 
+    [
+      ["0", "0", "0"],
+      [null, "X", "0"],
+      ["X", null, "x"]
+    ];
+
+    let board0WinsAcross2 = 
+    [
+      [null, "X", "0"],
+      ["0", "0", "0"],
+      ["X", null, "X"]
+    ];
+
+    let board0WinsAcross3 = 
+    [
+      [null, "X", "0"],
+      ["X", null, "X"],
+      ["0", "0", "0"]
+    ];
+
+  let boardXWinsDiagonal1 = 
+    [
+      ["X", "0", "0"],
+      [null, "X", "0"],
+      ["X", null, "X"]
+    ];
+
+  let board0WinsDiagonal2 = 
+    [
+      ["X", "X", "0"],
+      [null, "0", "X"],
+      ["0", null, "X"]
+    ];
+
+  let boardNoWinners1 = 
+    [
+      ["X", "0", "0"],
+      [null, "X", "X"],
+      ["X", null, "0"]
+    ];
+
+  let boardNoWinners2 = 
+    [
+      ["X", null, "0"],
+      [ "0", null,"X"],
+      ["X", null, "0"]
+    ];
+
+    test("that 0 has won across top row", () => {
+      expect(findWinner(board0WinsAcross1)).toBe("0");
+    });
+
+    test("that 0 has won across middle row", () => {
+      expect(findWinner(board0WinsAcross2)).toBe("0");
+    });
+
+    test("that 0 has won across bottom row", () => {
+      expect(findWinner(board0WinsAcross3)).toBe("0");
+    });
+
+    test("that X has won along first column", () => {
+      expect(findWinner(boardXWinsDown1)).toBe("X");
+    });
+
+    test("that X has won along second column", () => {
+      expect(findWinner(boardXWinsDown2)).toBe("X");
+    });
+
+    test("that X has won along last column", () => {
+      expect(findWinner(boardXWinsDown3)).toBe("X");
+    });
+
+    test("that X has won along left to right down diagonal", () => {
+      expect(findWinner(boardXWinsDiagonal1)).toBe("X");
+    });
+
+    test("that 0 has won along right to left down diagonal", () => {
+      expect(findWinner(board0WinsDiagonal2)).toBe("0");
+    });
+
+    test("that there is no winner", () => {
+      expect(findWinner(boardNoWinners1)).toBe(null);
+      expect(findWinner(boardNoWinners2)).toBe(null);
+    });
+    
+});
+
+describe("checkBoardDimensions", () => {
+
+  let validBoard = 
+    [
+      ["X", "0", null],
+      ["X", null, "0"],
+      ["X", null, "0"]
+    ];
+
+  let invalidBoardNotThree = 
+    [
+      ["X", "0", null],
+      ["X", null, "0"]
+    ];
+    
+  let invalidBoardInnerNotThree = 
+    [
+      ["X", "0"],
+      ["X", null],
+      ["X", null]
+    ];
+
+  test("that the board sent in contains the correct dimensions", () => {
+
+    expect(() => {
+      checkBoardDimensions();
+    }).toThrow("board is required");
+
+    expect(() => {
+      checkBoardDimensions(invalidBoardNotThree);
+    }).toThrow("The board requires 3 elements.");
+
+    expect(() => {
+      checkBoardDimensions(invalidBoardInnerNotThree);
+    }).toThrow("Each of the elements in the board requires 3 elements.");
+
+  });
+
+  test("that the board passes the dimension tests", () => {
+    expect(checkBoardDimensions(validBoard)).toBe(true);
+  }); 
 
 });
