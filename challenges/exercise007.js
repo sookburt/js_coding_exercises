@@ -124,26 +124,17 @@ const hexToRGB = hexStr => {
   let hexSection = hexStr.replace("#", "");
   let r, g, b = 0;
 
-  if(hexSection.length === 6){
-    r = parseInt(hexSection.substring(0, 2), 16);
-    g = parseInt(hexSection.substring(2, 4), 16);
-    b = parseInt(hexSection.substring(4, 6), 16);
-  }
-  else if(hexSection.length === 3){
-    r = parseInt(doubleUpCharacter(hexSection.substring(0, 1)), 16);
-    g = parseInt(doubleUpCharacter(hexSection.substring(1, 2)), 16);
-    b = parseInt(doubleUpCharacter(hexSection.substring(2, 3)), 16);
+  // turn F13 into FF1133 by duplicating each of the characters
+  if(hexSection.length === 3) {
+    hexSection = [...hexSection].map(char => char + char).join("");
   }
 
-  return "rgb("+ r +"," + g + "," + b + ")";
+  r = parseInt(hexSection.substring(0, 2), 16);
+  g = parseInt(hexSection.substring(2, 4), 16);
+  b = parseInt(hexSection.substring(4, 6), 16);
+
+  return `rgb(${r},${g},${b})`;
 };
-
-/**
- * This function takes a single character and returns a string containing two of the same characters.
- * @param {String} hexChar
- * @returns {String}
- */
-const doubleUpCharacter = hexChar => hexChar + hexChar;
 
 /**
  * This function takes a noughts and crosses board represented as an array, where an empty space is represented with null.
