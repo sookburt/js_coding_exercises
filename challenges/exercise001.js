@@ -1,6 +1,5 @@
 function capitalize(word) {
   if (word === undefined) throw new Error("word is required");
-  // Add your code here!
   let builder = word.charAt(0).toLocaleUpperCase() + word.substr(1);
   return builder;
 }
@@ -26,30 +25,26 @@ function generateInitials(firstName, lastName) {
 function addVAT(originalPrice, vatRate) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (vatRate === undefined) throw new Error("vatRate is required");
-  // Add your code here!
   if (Number.isNaN(originalPrice)) throw new Error("originalPrice is not a number");
   if (Number.isNaN(vatRate)) throw new Error("vatRate is not a number");
 
-  let amountToBeAdded = +(vatRate / 100 * originalPrice).toFixed(2); // handle the floating point rounding up to 2 decimal places.
+  let amountToBeAdded = +(vatRate / 100 * originalPrice).toFixed(2);
   return (originalPrice + amountToBeAdded);
 }
 
 function getSalePrice(originalPrice, reduction) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (reduction === undefined) throw new Error("reduction is required");
-  // Add your code here!
   if (Number.isNaN(originalPrice)) throw new Error("originalPrice is not a number");
   if (Number.isNaN(reduction)) throw new Error("reduction is not a number");
 
-  let reductionAmount = +(reduction / 100 * originalPrice).toFixed(2); // handle the floating point rounding up to 2 decimal places.
+  let reductionAmount = +(reduction / 100 * originalPrice).toFixed(2);
   return (originalPrice - reductionAmount);
 }
 
 function getMiddleCharacter(str) {
   if (str === undefined) throw new Error("str is required");
-  // Add your code here!
-  // TODO: add check if input contains correct character type
-  // TODO: should we trim or is any padding expected to be included.
+  // Assumed any padding expected to be included.
 
   let stringSize = str.length;
   if (stringSize % 2 < 1) {
@@ -63,14 +58,14 @@ function getMiddleCharacter(str) {
 
 function reverseWord(word) {
   if (word === undefined) throw new Error("word is required");
-  // Assumed any padding also part of the requirements.
+  // Assumed any padding expected to be included.
 
   return word.split("").reverse().join("");
 }
 
 function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
-  // Assumed any padding to be retained
+  // Assumed any padding expected to be included.
 
   let returnArray = words.map(x => reverseWord(x));
   return returnArray;
@@ -105,11 +100,9 @@ function simpleFizzBuzz(n) {
   if (divBy3 && divBy5) {
     return "fizzbuzz";
   }
-
   if (divBy3) {
     return "fizz";
   }
-
   if (divBy5) {
     return "buzz";
   }
