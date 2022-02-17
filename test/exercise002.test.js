@@ -7,6 +7,23 @@ const {
 } = require("../challenges/exercise002");
 
 describe("getFillings", () => {
+
+  test("that it throws an error if sandwich is undefined", () => {
+    expect(() => {
+      getFillings();
+    }).toThrow("ingredients is required");
+  });
+
+  test("that it throws an error if sandwich.fillings is undefined", () => {
+    expect(() => {
+      const sandwich = {
+        bread: "Sourdough",
+        accompaniment: "crisps"
+      };
+      getFillings(sandwich);
+    }).toThrow("fillings are required");
+  });
+
   test("returns the fillings of a sandwich", () => {
     const sandwich = {
       bread: "Sourdough",
@@ -25,6 +42,23 @@ describe("getFillings", () => {
 });
 
 describe("isFromManchester", () => {
+
+  test("that it throws an error if person is undefined", () => {
+    expect(() => {
+      isFromManchester();
+    }).toThrow("person is required");
+  });
+
+  test("that it throws an error if person.city is undefined", () => {
+    const person = {
+      name: "Mohammed",
+      age: 23
+    };
+    expect(() => {
+      isFromManchester(person);
+    }).toThrow("city is required");
+  });
+
   test("returns true if the person is from Manchester", () => {
     const person = {
       name: "Mohammed",
@@ -32,6 +66,15 @@ describe("isFromManchester", () => {
       age: 23
     };
     expect(isFromManchester(person)).toBe(true);
+  });
+
+  test("returns false if the person is from Manchester-By-The-Sea", () => {
+    const person = {
+      name: "Brad",
+      city: "Manchester-By-The-Sea",
+      age: 23
+    };
+    expect(isFromManchester(person)).toBe(false);
   });
 
   test("returns false if the person is not Manchester", () => {
@@ -45,7 +88,19 @@ describe("isFromManchester", () => {
 });
 
 describe("getBusNumbers", () => {
-  // A bus can hold 40 people. This function should return how many buses are required for the number of people
+
+  test("that it throws an error if people is undefined", () => {
+    expect(() => {
+      getBusNumbers();
+    }).toThrow("people is required");
+  });
+
+  test("that it throws an error if people is not a number", () => {
+    expect(() => {
+      getBusNumbers("blah");
+    }).toThrow("people must be a number");
+  });
+
   test("returns 1 if all the people fit in 1 bus", () => {
     expect(getBusNumbers(1)).toBe(1);
     expect(getBusNumbers(10)).toBe(1);
@@ -74,6 +129,17 @@ describe("getBusNumbers", () => {
 });
 
 describe("countSheep", () => {
+
+  test("that it throws an error if arr is undefined", () => {
+    expect(() => {
+      countSheep();
+    }).toThrow("arr is required")
+  });
+
+  test("returns 0 if the array is empty", () => {
+    expect(countSheep([])).toBe(0);
+  });
+
   test("returns 0 if there are 0 sheep in the array", () => {
     const arr = ["dog", "badger", "dog", "dog", "chicken"];
     expect(countSheep(arr)).toBe(0);
@@ -86,6 +152,11 @@ describe("countSheep", () => {
 
   test("returns 2 if there are 2 sheep in the array", () => {
     const arr = ["dog", "sheep", "dog", "sheep", "chicken"];
+    expect(countSheep(arr)).toBe(2);
+  });
+
+  test("returns 2 if there are 2 sheep in the array - case insensitive", () => {
+    const arr = ["dog", "Sheep", "dog", "sheep", "chicken"];
     expect(countSheep(arr)).toBe(2);
   });
 
@@ -106,6 +177,41 @@ describe("countSheep", () => {
 });
 
 describe("hasMPostCode", () => {
+
+  test("that it returns an error if person is undefined", () => {
+    expect(() => {
+      hasMPostCode();
+    }).toThrow("person is required");
+  });
+
+  test("that it returns an error if there is no postcode property", () => {
+    const person = {
+      name: "Mohammed",
+      age: 23,
+      address: {
+        line1: "1a Pool Road",
+        city: "Manchester"
+      }
+    };
+    expect(() => {
+      hasMPostCode(person);
+    }).toThrow("a postcode property is required");
+  });
+
+  test("that it returns an error if there is no city property", () => {
+    const person = {
+      name: "Mohammed",
+      age: 23,
+      address: {
+        line1: "1a Pool Road",
+        postCode: "M16 8DR"
+      }
+    };
+    expect(() => {
+      hasMPostCode(person);
+    }).toThrow("a city property is required");
+  });
+
   test("returns true if the person has a postcode starting with M", () => {
     const person = {
       name: "Mohammed",
@@ -114,6 +220,20 @@ describe("hasMPostCode", () => {
         line1: "1a Pool Road",
         city: "Manchester",
         postCode: "M16 8DR"
+      }
+    };
+    expect(hasMPostCode(person)).toBe(true);
+  });
+
+
+  test("returns true if the person has a postcode starting with m - case-insensitive", () => {
+    const person = {
+      name: "Mohammed",
+      age: 23,
+      address: {
+        line1: "1a Pool Road",
+        city: "manchester",
+        postCode: "m16 8dr"
       }
     };
     expect(hasMPostCode(person)).toBe(true);
