@@ -14,8 +14,8 @@ function generateInitials(firstName, lastName) {
 function addVAT(originalPrice, vatRate) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (vatRate === undefined) throw new Error("vatRate is required");
-  if (Number.isNaN(parseInt(originalPrice))) throw new Error("originalPrice is not a number");
-  if (Number.isNaN(parseInt(vatRate))) throw new Error("vatRate is not a number");
+  if (Number.isNaN(parseInt(originalPrice, 10))) throw new Error("originalPrice is not a number");
+  if (Number.isNaN(parseInt(vatRate, 10))) throw new Error("vatRate is not a number");
 
   let amountToBeAdded = +(vatRate / 100 * originalPrice).toFixed(2);
   return (originalPrice + amountToBeAdded);
@@ -24,8 +24,8 @@ function addVAT(originalPrice, vatRate) {
 function getSalePrice(originalPrice, reduction) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (reduction === undefined) throw new Error("reduction is required");
-  if (Number.isNaN(parseInt(originalPrice))) throw new Error("originalPrice is not a number");
-  if (Number.isNaN(parseInt(reduction))) throw new Error("reduction is not a number");
+  if (Number.isNaN(parseInt(originalPrice, 10))) throw new Error("originalPrice is not a number");
+  if (Number.isNaN(parseInt(reduction, 10))) throw new Error("reduction is not a number");
 
   let reductionAmount = +(reduction / 100 * originalPrice).toFixed(2);
   return (originalPrice - reductionAmount);
@@ -48,8 +48,6 @@ function getMiddleCharacter(str) {
 function reverseWord(word) {
   if (word === undefined) throw new Error("word is required");
   if (word.length < 1) throw new Error("word is empty");
-
-  // Assumed any padding expected to be included.
 
   return word.split("").reverse().join("");
 }
