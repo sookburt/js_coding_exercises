@@ -6,28 +6,29 @@ const {
   duplicateNumbers
 } = require("../challenges/exercise003");
 
-describe("camelCaseWords", () => {
-  test("camel cases a single word (i.e. no capital letter at beginning)", () => {
-    expect(camelCaseWords(["my"])).toBe("my");
-  });
-
-  test("camel cases two words (i.e. second word is capitalized)", () => {
-    expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
-  });
-
-  test("camel cases two+ words (i.e. all words after 1st are capitalized)", () => {
-    expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
-    expect(camelCaseWords(["my", "variable", "name"])).toBe("myVariableName");
-    expect(camelCaseWords(["is", "unique"])).toBe("isUnique");
-    expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe(
-      "isHigherThanMinNumber"
-    );
-  });
-});
-
 describe("getSquares", () => {
+
+  test("that it returns an error if nums is undefined", () => {
+    expect(() => {
+      getSquares();
+    }).toThrow("nums is required");
+  });
+
+  test("that it returns an error if an element of the array is not a number", () => {
+    expect(() => {
+      getSquares(["hi", 1, 2]);
+      getSquares([1, "hi", 4, 2]);
+      getSquares([{'hello':1}, "hi", 4, 2]);
+      getSquares(1.0, 2.1);
+    }).toThrow("each element of nums must be a number");
+  });
+
   test("returns an empty array if empty array passed", () => {
     expect(getSquares([])).toEqual([]);
+  });
+
+  test("returns an empty array if empty array passed", () => {
+    expect(getSquares([0,0,0])).toEqual([0,0,0]);
   });
 
   test("returns an array of squares of the original numbers", () => {
@@ -41,6 +42,45 @@ describe("getSquares", () => {
       4356,
       984064
     ]);
+  });
+});
+
+describe("camelCaseWords", () => {
+
+  test("that it throws an error if words is undefined", ()=> {
+    expect(() => {
+      camelCaseWords();
+    }).toThrow("words is required");
+  });
+
+  test("camel cases a single word (i.e. no capital letter at beginning)", () => {
+    expect(camelCaseWords(["my"])).toBe("my");
+  });
+
+  test("camel cases two words (i.e. second word is capitalized)", () => {
+    expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
+  });
+
+  test("camel cases two words (i.e. second word is capitalized)", () => {
+    expect(camelCaseWords(["1", "variable"])).toBe("1Variable");
+  });
+
+  test("camel cases two words even if already capitalized", () => {
+    expect(camelCaseWords(["my", "Variable"])).toBe("myVariable");
+  });
+
+  test("camel cases two words even if both already capitalized", () => {
+    expect(camelCaseWords(["My", "Variable"])).toBe("myVariable");
+    expect(camelCaseWords(["MY", "VARIABLE"])).toBe("myVariable");
+  });
+
+  test("camel cases two+ words (i.e. all words after 1st are capitalized)", () => {
+    expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
+    expect(camelCaseWords(["my", "variable", "name"])).toBe("myVariableName");
+    expect(camelCaseWords(["is", "unique"])).toBe("isUnique");
+    expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe(
+      "isHigherThanMinNumber"
+    );
   });
 });
 

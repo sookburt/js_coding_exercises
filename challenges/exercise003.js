@@ -5,6 +5,7 @@
  */
 function getSquares(nums) {
   if (nums === undefined) throw new Error("nums is required");
+  if (nums.filter(num => !Number.isInteger(num)).length > 0) throw new Error("each element of nums must be a number");
 
   return nums.map(n => n * n);
 }
@@ -17,7 +18,7 @@ function getSquares(nums) {
 function camelCaseWords(words) {
   if (words === undefined) throw new Error("words is required");
 
-  return words.shift() + words.map(word => word.charAt(0).toUpperCase() + word.substring(1)).join("");
+  return words.shift().toLowerCase() + words.map(word => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()).join("");
 }
 
 /**
