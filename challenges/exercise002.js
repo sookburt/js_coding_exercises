@@ -28,7 +28,7 @@ function isFromManchester(person) {
  */
 function getBusNumbers(people) {
   if (people === undefined) throw new Error("people is required");
-  if (Number.isNaN(parseInt(people))) throw new Error("people must be a number");
+  if (Number.isNaN(parseInt(people, 10))) throw new Error("people must be a number");
 
   const passengerLimit = 40;
   return Math.ceil(people / passengerLimit);
