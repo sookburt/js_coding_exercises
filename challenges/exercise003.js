@@ -28,11 +28,9 @@ function camelCaseWords(words) {
  */
 function getTotalSubjects(people) {
   if (people === undefined) throw new Error("people is required");
-  let count = 0;
-
-  people.forEach(person => count += person.subjects.length);
-
-  return count;
+  if (people.filter(person => person.subjects === undefined).length > 0) throw new Error("people.subjects is required");
+  
+  return people.map(person => person.subjects.length).reduce((prev, curr) => prev + curr);
 }
 
 /**
@@ -44,16 +42,9 @@ function getTotalSubjects(people) {
 function checkIngredients(menu, ingredient) {
   if (menu === undefined) throw new Error("menu is required");
   if (!ingredient) throw new Error("ingredient is required");
+  if (menu.filter(dish => dish.ingredients === undefined).length > 0) throw new Error("menu.ingredients is required");
 
-  let ingredientExists = false;
-
-  menu.forEach(item => {
-    if (item.ingredients.includes(ingredient)) {
-      ingredientExists = true;
-    }
-  })
-
-  return ingredientExists;
+  return menu.filter(dish => dish.ingredients.includes(ingredient)).length > 0;
 }
 
 /**
@@ -63,8 +54,8 @@ function checkIngredients(menu, ingredient) {
  * @returns {Array}
  */
 function duplicateNumbers(arr1, arr2) {
-  if (arr1 === undefined) throw new Error("arr1 is required");
-  if (arr2 === undefined) throw new Error("arr2 is required");
+  if (arr1 === undefined || arr1.length < 1) throw new Error("arr1 is required");
+  if (arr2 === undefined || arr2.length < 1) throw new Error("arr2 is required");
 
   return [...new Set(arr1.filter(num => arr2.includes(num)))].sort();
 }

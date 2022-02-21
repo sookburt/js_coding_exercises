@@ -85,6 +85,24 @@ describe("camelCaseWords", () => {
 });
 
 describe("getTotalSubjects", () => {
+
+  test("that it throws an error if people is undefined", ()=> {
+    expect(() => {
+      getTotalSubjects();
+    }).toThrow("people is required");
+  });
+
+  test("that it throws an error if no people have subjects", ()=> {
+    expect(() => {
+      const people = [
+        { name: "Billy"},
+        { name: "Claude"},
+        { name: "Aneeta", subjects: []}
+      ];     
+      getTotalSubjects(people);
+    }).toThrow("people.subjects is required");
+  });
+
   test("returns 0 if no people have subjects", () => {
     const people = [
       { name: "Billy", subjects: [] },
@@ -114,6 +132,40 @@ describe("getTotalSubjects", () => {
 });
 
 describe("checkIngredients", () => {
+
+  test("that it throws an error if menu is undefined", ()=> {
+    expect(() => {
+      checkIngredients(undefined, "milk");
+    }).toThrow("menu is required");
+  });
+
+  test("that it throws an error if ingredient is undefined", ()=> {
+    expect(() => {
+      const menu = [
+        {
+          name: "hummus",
+          ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"]
+        }
+      ];
+      checkIngredients(menu, undefined);
+    }).toThrow("ingredient is required");
+  });
+
+  test("that it throws an error if ingredients property is undefined", ()=> {
+    expect(() => {
+      const menu = [
+        {
+          name: "chocolate tiffin"
+        },
+        {
+          name: "hummus",
+          ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"]
+        }
+      ];
+      checkIngredients(menu, "black beans");
+    }).toThrow("menu.ingredients is required");
+  });
+
   test("returns false if no menu items include the specified ingredient", () => {
     const menu = [
       {
@@ -174,6 +226,37 @@ describe("checkIngredients", () => {
 });
 
 describe("duplicateNumbers", () => {
+
+  test("that it throws an error if the first array is undefined", () => {
+      expect(() => {
+        let arr2 = [55, 23, 65, 0];
+        duplicateNumbers(undefined, arr2);
+      }).toThrow("arr1 is required");
+  });
+
+  test("that it throws an error if the first array is undefined", () => {
+    expect(() => {
+      let arr1 = [1, 55, 4, 3, 7, 8];
+      duplicateNumbers(arr1, undefined);
+    }).toThrow("arr2 is required");
+  });
+
+  test("that it throws an error if arr1 is empty", () => {
+    expect(() => {
+      let arr1 = [];
+      let arr2 = [1, 2, 3];
+      duplicateNumbers(arr1, arr2);
+    }).toThrow("arr1 is required");
+  });
+
+  test("that it throws an error if arr2 is empty", () => {
+    expect(() => {
+      let arr1 = [1, 2, 3];
+      let arr2 = [];
+      duplicateNumbers(arr1, arr2);
+    }).toThrow("arr2 is required");
+  });
+
   test("returns an array of numbers which appear in both arr1 and arr2", () => {
     let arr1 = [1, 55, 4, 3, 7, 8];
     let arr2 = [55, 23, 65, 0];
