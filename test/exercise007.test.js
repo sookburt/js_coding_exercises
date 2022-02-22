@@ -12,12 +12,10 @@ describe("sumDigits", () => {
 
   test("that it throws an error if the string passed does not parse to a number", () => {
     expect(() => {
-      sumDigits("foo")
-    }).toThrow("a string containing a number is required");
-
-    expect(() => {
-      sumDigits("12foo") // a catch clause parse test on the whole string doesn't catch this.
-    }).toThrow("a string containing a number is required");
+      sumDigits("foo");
+      sumDigits("12foo");
+      sumDigits("-12");
+    }).toThrow("a string containing only a number is required");
   });
 
   test("returns the sum of the values in a string containing numbers", () => {
@@ -67,10 +65,6 @@ describe("createRange", () => {
   });
 
   test("returns an array containing a range based on numbers sent in even if start negative", () => {
-    expect(createRange(-2, 3, 1)).toEqual([-2, -1, 0, 1, 2, 3]);
-  });
-
-  test("returns an array containing a range based on numbers sent in even if negative", () => {
     expect(createRange(-2, 3, 1)).toEqual([-2, -1, 0, 1, 2, 3]);
   });
 

@@ -5,15 +5,9 @@
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
-  // assumed non-negative numbers.
-  const splitIncoming = n.split("");
-  let total = 0;
-  splitIncoming.forEach(num => {
-    let parsed = Number.parseInt(num);
-    if (Number.isNaN(parsed)) throw new Error("a string containing a number is required")
-    total += parsed;
-  });
-  return total;
+  if ([...n].filter(char => Number.isNaN(parseInt(char))).length > 0) throw new Error("a string containing only a number is required");
+
+  return [...n].reduce((accumulator, current) => accumulator + parseInt(current), 0);
 };
 
 /**
@@ -68,7 +62,7 @@ const createRange = (start, end, step) => {
  * The date will be provided in the format "2019-05-04" (YYYY-MM-DD)
  * For example, if passed the above users and the date "2019-05-04" the function should return ["beth_1234"] as she used over 100 minutes of screentime on that date.
  * @param {Array} users
- * @param {String} date // TODO: better to send in a Date and get string from that?
+ * @param {String} date
  * @returns {Array}
  */
 const getScreentimeAlertList = (users, date) => {
@@ -79,28 +73,13 @@ const getScreentimeAlertList = (users, date) => {
   let usersOver100Minutes = [];
   const limit = 100;
 
-  users.forEach(user => {
-
-    // get the userid 
-    let userid = user.username;
-
-    // find the usage record with the correct date
-    user.screenTime.forEach(record => {
-
-      if (record.date === date) {
-
-        // get the total minutes screentime for that date.
-        let total = 0;
-        for (let key in record.usage) {
-          total += record.usage[key];
-        }
-
-        // if the total is > 100 , push the username into the return array.
-        if (total > limit) {
-          usersOver100Minutes.push(userid);
-        }
-      }
-    });
+  users.map(user => {
+    let count = 0;
+    user.screenTime.filter(record => record.date === date)
+    .forEach(timelog => Object.entries(timelog.usage)
+    // eslint-disable-next-line no-unused-vars
+    .forEach(([key, value]) => count += value ));
+    count > limit ? usersOver100Minutes.push(user.username) : null;
   });
 
   return usersOver100Minutes;
@@ -122,18 +101,13 @@ const hexToRGB = hexStr => {
   if (!/^#?([0-9a-f]{6}|[0-9a-f]{3})$/i.test(hexStr.trim())) throw new Error("hexStr must a contain hexadecimal code")
 
   let hexSection = hexStr.replace("#", "");
-  let r, g, b = 0;
 
   // turn F13 into FF1133 by duplicating each of the characters
   if (hexSection.length === 3) {
     hexSection = [...hexSection].map(char => char + char).join("");
   }
 
-  r = parseInt(hexSection.substring(0, 2), 16);
-  g = parseInt(hexSection.substring(2, 4), 16);
-  b = parseInt(hexSection.substring(4, 6), 16);
-
-  return `rgb(${r},${g},${b})`;
+  return `rgb(${parseInt(hexSection.substring(0, 2), 16)},${parseInt(hexSection.substring(2, 4), 16)},${parseInt(hexSection.substring(4, 6), 16)})`;
 };
 
 /**
@@ -150,65 +124,46 @@ const hexToRGB = hexStr => {
 const findWinner = board => {
   checkBoardDimensions(board);
 
-  let winner = "";
-
-  // TODO: consider refactoring (look for patterns).
-  winner = checkRowsForWinner(board.flat(), winner);
-  if (winner !== "") {
-    return winner;
-  }
-
-  winner = checkColumnsForWinner(board.flat(), winner);
-  if (winner !== "") {
-    return winner;
-  }
-
-  winner = checkDiagonalsForWinner(board.flat(), winner);
-  if (winner !== "") {
-    return winner;
-  }
-
-  return null;
+  return checkRowsForWinner(board.flat()) || checkColumnsForWinner(board.flat()) || checkDiagonalsForWinner(board.flat());
 };
 
-const checkDiagonalsForWinner = (board, winner) => {
+const checkDiagonalsForWinner = (board) => {
 
-  if (board[0] === board[4] && board[0] === board[8]) { return board[0]; }
-  if (board[2] === board[4] && board[2] === board[6]) { return board[2]; }
-
+  let winner = null;
+  (board[0] === board[4] && board[0] === board[8]) ? winner = board[0] : 
+  (board[2] === board[4] && board[2] === board[6]) ? winner = board[2] : null;
   return winner;
 }
 
-const checkColumnsForWinner = (board, winner) => {
+const checkColumnsForWinner = (board) => {
 
   if (board[0] === board[3] && board[0] === board[6]) { return board[0]; }
   if (board[1] === board[4] && board[1] === board[7]) { return board[1]; }
   if (board[2] === board[5] && board[2] === board[8]) { return board[2]; }
 
-  return winner;
+  return null;
 }
 
-const checkRowsForWinner = (board, winner) => {
+const checkRowsForWinner = (board) => {
 
   if (board[0] === board[1] && board[0] === board[2]) { return board[0]; }
   if (board[3] === board[4] && board[3] === board[5]) { return board[3]; }
   if (board[6] === board[7] && board[6] === board[8]) { return board[6]; }
 
-  return winner;
+  return null;
 }
 
 /**
  * Checks that the board sent in is a 3 x 3 2-dimensional array.
  * @param {Array} board 
+ * @returns {Boolean}
  */
 const checkBoardDimensions = board => {
   if (board === undefined) throw new Error("board is required");
   if (board.length !== 3) throw new Error("The board requires 3 elements.");
 
   let isValid = true;
-  board.forEach(dimension => {
-    if (dimension.length !== 3) { isValid = false; }
-  });
+  board.forEach(dimension => dimension.length !== 3 ? isValid = false : null);
   if (!isValid) throw new Error("Each of the elements in the board requires 3 elements.")
 
   return isValid;
