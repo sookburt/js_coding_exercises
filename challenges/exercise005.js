@@ -44,64 +44,56 @@ const reverseNumber = n => {
  */
 const sumArrays = arrs => {
   if (arrs === undefined) throw new Error("arrs is required");
-  //if ((arrs.flat().filter(n => Number.isNaN(parseInt(n)))).length > 0) throw new Error("a 2-D array of numbers is required");
-
-  // TO HERE: parseInt doesn't handle an array quite how you might expect parseInt([2, 4]) === 2 rather than NaN...
-  
+  if ((arrs.flat().filter(n => Array.isArray(n))).length > 0) throw new Error("a 2-D array of numbers is required");
+ 
   return (arrs.flat()).reduce((curr, prev) => curr + prev);
 };
 
+/**
+ * Returns a passed in array with the first and last items swapped.
+ * @param {Array} arr 
+ * @returns {Array}
+ */
 const arrShift = arr => {
   if (arr === undefined) throw new Error("arr is required");
-  if (arr.length > 1) {
-    let toFront = arr.pop();
-    let toEnd = arr.shift();
-    arr.unshift(toFront);
-    arr.push(toEnd);
+
+  if (arr.length > 1) { 
+    arr.splice(1, 0, arr.pop()); 
+    arr.push(arr.shift()); 
   }
   return arr;
-  // TODO: refactor?
 };
 
+/**
+ * Returns true if any of the properties of the passed in object contain the specified string search term.
+ * @param {Object} haystack 
+ * @param {String} searchTerm 
+ * @returns {Boolean}
+ */
 const findNeedle = (haystack, searchTerm) => {
   if (haystack === undefined) throw new Error("haystack is required");
   if (searchTerm === undefined) throw new Error("searchTerm is required");
-  // assume not nested objects (otherwise recursion?)
 
-  // 🤢  TODO: refactor...
-  for (let key in haystack) {
-    let value = haystack[key];
-    let checkedSearchTerm = searchTerm;
-    if (typeof searchTerm === 'string' && typeof value === 'string') {
-      value = value.toLowerCase();
-      checkedSearchTerm = checkedSearchTerm.toLowerCase();
-      if (value.includes(checkedSearchTerm)) {
-        return true;
-      }
-    }
-    if (value === checkedSearchTerm) { // in case of non string values being searched for
-      return true;
-    }
-  }
-  return false;
+  let isFound = false;
+  Object.entries(haystack).forEach(([key, value]) => {
+    (typeof value == 'string' && value.toLowerCase().includes(searchTerm.toLowerCase())) ? isFound = true : null; 
+  });
+  return isFound;
 };
 
+/**
+ * Returns the frequencies of each word in a string, ignoring capitalizsation
+ * @param {String} str 
+ * @returns {Object}
+ */
 const getWordFrequencies = str => {
   if (str === undefined) throw new Error("str is required");
 
-  // remove punctuation and padding and ensure all lowercase.
-  const processedString = str.trim().replace(/[.,/#!$%^&*;:{}=\-_`~()?]/g, "").toLowerCase();
+  const processedString = str.trim().replace(/[^a-zA-Z ]/g, "").toLowerCase();
   const stringArray = processedString.split(" ");
   const wordCounts = {};
 
-  stringArray.forEach(word => {
-    if (wordCounts[word] === undefined) {
-      wordCounts[word] = 1;
-    }
-    else {
-      wordCounts[word] += 1;
-    }
-  });
+  stringArray.forEach(word => wordCounts[word] === undefined ? wordCounts[word] = 1 : wordCounts[word]++);
   return wordCounts;
 };
 

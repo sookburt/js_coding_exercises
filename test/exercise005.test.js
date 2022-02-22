@@ -121,20 +121,29 @@ describe("sumArrays", () => {
     }).toThrow("arrs is required");
   });
 
-  // test("that it throws an error when arrs is greater than a 2 dimensional array", () => {
-  //   expect(() => {
-  //     const arrs = [[1, [2, 4], 3], [6, 3, 1], [1], [9, 10], [3, 5]];
-  //     sumArrays(arrs);
-  //   }).toThrow("a 2-D array of numbers is required");
-  // });
+  test("that it throws an error when arrs is greater than a 2 dimensional array", () => {
+    expect(() => {
+      const arrs = [[1, [2, 4], 3], [6, 3, 1], [1], [9, 10], [3, 5]];
+      sumArrays(arrs);
+    }).toThrow("a 2-D array of numbers is required");
+  });
 
   test("returns the total of the numbers in all sub arrays", () => {
-    const arrs = [[1, 2, 3], [6, 3, 1], [1], [9, 10], [3, 5]];
+    let arrs = [[1, 2, 3], [6, 3, 1], [1], [9, 10], [3, 5]];
     expect(sumArrays(arrs)).toBe(44);
+    arrs = [[0, 0, 0], [0, 0, 0], [0], [0, 0], [0, 0]];
+    expect(sumArrays(arrs)).toBe(0);
   });
 });
 
 describe("arrShift", () => {
+
+  test("that it throws an error if arr is undefined", () => {
+    expect(() => {
+      arrShift();
+    }).toThrow("arr is required");
+  });
+
   test("returns an array with the first and last items swapped", () => {
     expect(arrShift([1, 2])).toEqual([2, 1]);
     expect(arrShift([1, 2, 3])).toEqual([3, 2, 1]);
@@ -148,6 +157,26 @@ describe("arrShift", () => {
 });
 
 describe("findNeedle", () => {
+
+  test("that it throws an error if haystack is undefined", () => {
+    expect(() => {
+      findNeedle(undefined, "table");
+    }).toThrow("haystack is required")
+  });
+
+  test("that it throws an error if searchTerm is undefined", () => {
+    expect(() => {
+      const obj1 = {
+        name: "LINNMON",
+        description: "Small round table",
+        price: 31.89,
+        store: "Warrington",
+        code: 12872
+      };
+      findNeedle(obj1, undefined);
+    }).toThrow("searchTerm is required")
+  });
+
   test("returns true if any of the properties of an object contain the specified string", () => {
     const obj1 = {
       name: "LINNMON",
@@ -206,6 +235,13 @@ describe("findNeedle", () => {
 });
 
 describe("getWordFrequencies", () => {
+  
+  test("that it throws an error if str is undefined", () => {
+    expect(() => {
+      getWordFrequencies();
+    }).toThrow("str is required")
+  });
+
   test("returns the frequencies of each word in a string", () => {
     expect(getWordFrequencies("hello world")).toEqual({
       hello: 1,
