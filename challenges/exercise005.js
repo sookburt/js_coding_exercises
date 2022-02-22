@@ -75,9 +75,8 @@ const findNeedle = (haystack, searchTerm) => {
   if (searchTerm === undefined) throw new Error("searchTerm is required");
 
   let isFound = false;
-  Object.entries(haystack).forEach(([key, value]) => {
-    (typeof value == 'string' && value.toLowerCase().includes(searchTerm.toLowerCase())) ? isFound = true : null; 
-  });
+  // eslint-disable-next-line no-unused-vars
+  Object.entries(haystack).forEach(([key, value]) => typeof value == 'string' && value.toLowerCase().includes(searchTerm.toLowerCase()) ? isFound = true : null);
   return isFound;
 };
 
