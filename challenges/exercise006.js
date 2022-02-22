@@ -6,9 +6,8 @@
  */
 const sumMultiples = arr => {
   if (arr === undefined) throw new Error("arr is required");
-  let sum = 0;
-  arr.forEach(num => (num % 3 === 0 || num % 5 === 0) ? sum += num : sum += 0);
-  return sum;
+
+  return arr.reduce((accumulator, curr) => ((curr % 3 === 0 || curr % 5 === 0) ? accumulator + curr : accumulator), 0);
 };
 
 /**
@@ -19,15 +18,8 @@ const sumMultiples = arr => {
 const isValidDNA = str => {
   if (str === undefined) throw new Error("str is required");
   if (str.length < 1) { return false; }
-  const dnaArray = ["G", "T", "A", "C"];
-  // reduce the values to iterate over. 
-  let reducedString = [...new Set(str)];
-  for (let i = 0; i < reducedString.length; i++) {
-    if (!dnaArray.includes(reducedString[i])) {
-      return false;
-    }
-  }
-  return true;
+
+  return ([...new Set(str)].filter(char => !["G", "T", "A", "C"].includes(char))).length === 0;
 };
 
 /**
@@ -37,6 +29,8 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  if (!isValidDNA(str)) throw new Error("str is not a valid DNA sequence");
+
   // is a map overkill for this situation?
   const pairs = new Map();
   pairs.set("A", "T");
@@ -54,14 +48,11 @@ const getComplementaryDNA = str => {
  */
 const isItPrime = n => {
   if (n === undefined) throw new Error("n is required");
-  if (n <= 2) { return false; }
+  if (n < 2) { return false; }
 
-  let sqrt = Math.sqrt(n); // more performant to use sqrt.
-
+  const sqrt = Math.sqrt(n);
   for (let factor = 2; factor <= sqrt; factor++) {
-    if (n % factor === 0) {
-      return false;
-    }
+    if (n % factor === 0) return false;
   }
   return true;
 };
@@ -108,15 +99,7 @@ const areWeCovered = (staff, day) => {
   if (staff === undefined) throw new Error("staff is required");
   if (day === undefined) throw new Error("day is required");
 
-  let count = 0;
-
-  staff.forEach(person => {
-    if (person.rota.includes(day)) {
-      count += 1;
-    }
-  })
-
-  return count > 2;
+  return staff.filter(person => person.rota.includes(day)).length > 2;
 };
 
 module.exports = {
