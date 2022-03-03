@@ -80,6 +80,13 @@ const findNeedle = (haystack, searchTerm) => {
   return isFound;
 };
 
+/** For a group exercise.
+ * Returns the maximum number of an input array.
+ * @param {Array} arr 
+ * @returns {Number}
+ */
+const getMaxNumber = arr => Math.max(...arr); 
+
 /**
  * Returns the frequencies of each word in a string, ignoring capitalizsation
  * @param {String} str 
@@ -103,5 +110,6 @@ module.exports = {
   sumArrays,
   arrShift,
   findNeedle,
-  getWordFrequencies
+  getWordFrequencies,
+  getMaxNumber
 };

@@ -5,7 +5,8 @@ const {
   sumArrays,
   arrShift,
   findNeedle,
-  getWordFrequencies
+  getWordFrequencies,
+  getMaxNumber
 } = require("../challenges/exercise005");
 
 describe("findNextNumber", () => {
@@ -233,6 +234,13 @@ describe("findNeedle", () => {
     expect(findNeedle(obj1, "Liverpool")).toBe(false);
   });
 });
+
+describe("getMaxNumber - additional for group exercise", () =>{
+  test("An array of numbers returns max number", () => {
+    const arrayOfNums = [10, 9, 6, 5];
+    expect(getMaxNumber(arrayOfNums)).toBe(10);
+  });
+})
 
 describe("getWordFrequencies", () => {
   
